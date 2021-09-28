@@ -9,8 +9,8 @@ public class Ball : MonoBehaviour
 
     public float speedY;
     public float speedX;
-    private float inclinaisonFlipper = 20;
-    private float gravity = 9.8f;
+    public float inclinaisonFlipper = 20;
+    public float gravity = 9.8f;
     public float rayon = 2;
 
     private void Awake()
@@ -28,7 +28,29 @@ public class Ball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        speedY += -((float)Math.Sin(Mathf.Deg2Rad * inclinaisonFlipper) * gravity) * Time.deltaTime;
-        transform.position = new Vector3(transform.position.x, transform.position.y + speedY, transform.position.z);
+/*        if (!ManagerFlipper.Instance.isBallToCloseOfABumper())
+        {
+            speedY += -((float)Math.Sin(Mathf.Deg2Rad * inclinaisonFlipper) * gravity) * Time.deltaTime;
+            transform.position = new Vector3(transform.position.x, transform.position.y + speedY, transform.position.z);
+        }
+        else
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                if (true)
+                {
+                    transform.position = new Vector3(transform.position.x, transform.position.y + speedY / 100, transform.position.z);
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }*/
+    }
+
+    public float returnNextFramePositionY()
+    {
+        return transform.position.y + (speedY - ((float)Math.Sin(Mathf.Deg2Rad * inclinaisonFlipper) * gravity) * Time.deltaTime);
     }
 }
