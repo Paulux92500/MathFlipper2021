@@ -25,14 +25,21 @@ public class Ball : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public float returnNextFramePositionY()
     {
-        return transform.position.y + (speedY - ((float)Math.Sin(Mathf.Deg2Rad * inclinaisonFlipper) * gravity) * Time.deltaTime);
+        return transform.position.y + (speedY - (Mathf.Sin(Mathf.Deg2Rad * inclinaisonFlipper) * gravity) * Time.deltaTime);
+    }
+    public float returnNextFramePositionX()
+    {
+        return transform.position.x + speedX * Time.deltaTime;
+    }
+
+    public float returnNextFramePositionYDiv100()
+    {
+        return transform.position.y + ((speedY - (Mathf.Sin(Mathf.Deg2Rad * inclinaisonFlipper) * gravity)) * Time.deltaTime) / 100;
+    }
+    public float returnNextFramePositionXDiv100()
+    {
+        return transform.position.x + (speedX  * Time.deltaTime) / 100;
     }
 }
