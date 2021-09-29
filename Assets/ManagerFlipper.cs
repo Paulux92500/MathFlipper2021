@@ -49,6 +49,7 @@ public class ManagerFlipper : MonoBehaviour
                 }
                 else
                 {
+                    Debug.Log("END OF COLLISION /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////");
                     break;
                 }
             }
@@ -56,24 +57,23 @@ public class ManagerFlipper : MonoBehaviour
 
 
             //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            Vector3 Bump2Ball = new Vector3(Ball.Instance.transform.position.x - currentBumper.transform.position.x, Ball.Instance.transform.position.y - currentBumper.transform.position.y, Ball.Instance.transform.position.z - currentBumper.transform.position.z);
-            float Beta = Mathf.Atan(Bump2Ball.x / Bump2Ball.y);
-            float Alpha = Mathf.Atan(Ball.Instance.speedX / Ball.Instance.speedY);
-            Debug.Log(Alpha);
+            Vector3 Ball2Bump = new Vector2(currentBumper.transform.position.x - Ball.Instance.transform.position.x, currentBumper.transform.position.y - Ball.Instance.transform.position.y);
 
-            /*float distanceBallEtBumper = Ball.Instance.transform.position.y - currentBumper.transform.position.y;
-            if (distanceBallEtBumper < 0)
-            {
-                Alpha += Mathf.PI;
-            }
-*/
-            Debug.Log(Alpha);
-            float angleAlpha2 = 2 * Beta - Alpha;
+            /*float Beta = Mathf.Atan(Ball2Bump.x / Ball2Bump.y);
+            float Alpha = Mathf.Atan(Ball.Instance.speedX / Ball.Instance.speedY);*/
 
+            float AlphaR = Vector2.Angle(Vector2.right, new Vector3(Ball.Instance.speedX, Ball.Instance.speedY)); // - (Mathf.PI * Mathf.Rad2Deg)
+            Debug.Log("AlphaR : " + AlphaR);
+            float BetaR = Vector2.Angle( Vector2.right, Ball2Bump);
+            Debug.Log("BetaR : " + BetaR);
+
+            float angleAlpha2 = 2 * BetaR - AlphaR;
+            Debug.Log("angleAlpha2 : " + angleAlpha2);
+            //Calcul de la vitesse globale en fonction de nos vitesses en X et en Y.
             float globalSpeedOfBall = Mathf.Sqrt(Mathf.Pow(Ball.Instance.speedX, 2) + Mathf.Pow(Ball.Instance.speedY, 2));
 
-            Ball.Instance.speedX = globalSpeedOfBall * Mathf.Sin(angleAlpha2);
-            Ball.Instance.speedY = globalSpeedOfBall * Mathf.Cos(angleAlpha2);
+            Ball.Instance.speedX = -globalSpeedOfBall * Mathf.Cos(angleAlpha2 * Mathf.Deg2Rad);
+            Ball.Instance.speedY = globalSpeedOfBall * Mathf.Sin(angleAlpha2 * Mathf.Deg2Rad);
             //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             ///
 
@@ -88,15 +88,17 @@ public class ManagerFlipper : MonoBehaviour
 
     public bool isBallToCloseOfABumper()
     {
-        foreach (Bumper item in arrayOfAllBumper)
+        foreach (Bumper bumper in arrayOfAllBumper)
         {
-            float distanceBetBallAndBumper = Mathf.Sqrt(Mathf.Pow((item.transform.position.x - Ball.Instance.returnNextFramePositionX()), 2) + Mathf.Pow((item.transform.position.y - Ball.Instance.returnNextFramePositionY()), 2));
+            float distanceBetBallAndBumper = Mathf.Sqrt(Mathf.Pow((bumper.transform.position.x - Ball.Instance.returnNextFramePositionX()), 2) + Mathf.Pow((bumper.transform.position.y - Ball.Instance.returnNextFramePositionY()), 2));
+            Debug.Log(bumper + " est a telle distance : " + distanceBetBallAndBumper);
 
-            if (distanceBetBallAndBumper < (item.rayon + Ball.Instance.rayon))
+            if (distanceBetBallAndBumper < (bumper.rayon + Ball.Instance.rayon))
             {
                 Debug.Log("collision");
-                addPoints(item.pointsOfBumper);
-                currentBumper = item;
+                addPoints(bumper.pointsOfBumper);
+                currentBumper = bumper;
+               
                 return true;
             }
         }
