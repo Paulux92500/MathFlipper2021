@@ -62,7 +62,7 @@ public class ManagerFlipper : MonoBehaviour
             /*float Beta = Mathf.Atan(Ball2Bump.x / Ball2Bump.y);
             float Alpha = Mathf.Atan(Ball.Instance.speedX / Ball.Instance.speedY);*/
 
-            float AlphaR = Vector2.Angle(Vector2.right, new Vector3(Ball.Instance.speedX, Ball.Instance.speedY)); // - (Mathf.PI * Mathf.Rad2Deg)
+            float AlphaR = Vector2.Angle(Vector2.right, new Vector2(Ball.Instance.speedX, Ball.Instance.speedY)); // - (Mathf.PI * Mathf.Rad2Deg)
             Debug.Log("AlphaR : " + AlphaR);
             float BetaR = Vector2.Angle( Vector2.right, Ball2Bump);
             Debug.Log("BetaR : " + BetaR);
@@ -70,13 +70,11 @@ public class ManagerFlipper : MonoBehaviour
             float angleAlpha2 = 2 * BetaR - AlphaR;
             Debug.Log("angleAlpha2 : " + angleAlpha2);
             //Calcul de la vitesse globale en fonction de nos vitesses en X et en Y.
-            float globalSpeedOfBall = Mathf.Sqrt(Mathf.Pow(Ball.Instance.speedX, 2) + Mathf.Pow(Ball.Instance.speedY, 2));
+            float globalSpeedOfBall = Mathf.Sqrt(Mathf.Pow(Ball.Instance.speedX , 2) + Mathf.Pow(Ball.Instance.speedY, 2));
 
-            Ball.Instance.speedX = -globalSpeedOfBall * Mathf.Cos(angleAlpha2 * Mathf.Deg2Rad);
-            Ball.Instance.speedY = globalSpeedOfBall * Mathf.Sin(angleAlpha2 * Mathf.Deg2Rad);
+            Ball.Instance.speedX = -globalSpeedOfBall * Mathf.Cos(angleAlpha2 * Mathf.Deg2Rad) ;
+            Ball.Instance.speedY = globalSpeedOfBall * Mathf.Sin(angleAlpha2 * Mathf.Deg2Rad) ;
             //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            ///
-
         }
     }
 

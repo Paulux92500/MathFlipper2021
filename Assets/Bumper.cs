@@ -10,4 +10,6 @@ public class Bumper : MonoBehaviour
 
     public float rayon = 20;
     public int pointsOfBumper = 10 ;
+    [Range(1,2)]
+    public float bumpPower = 1;
 }
