@@ -66,6 +66,9 @@ public class ManagerFlipper : MonoBehaviour
 
                 Ball.Instance.speedX = -globalSpeedOfBall * Mathf.Cos(angleAlpha2 * Mathf.Deg2Rad);
                 Ball.Instance.speedY = globalSpeedOfBall * Mathf.Sin(angleAlpha2 * Mathf.Deg2Rad);
+
+                Ball.Instance.speedX *= 0.95f;
+                Ball.Instance.speedY *= 0.95f;
             }
 
             if (currentBumper.formeObject == Enums.Forme.Rectangle)
@@ -112,8 +115,8 @@ public class ManagerFlipper : MonoBehaviour
 
                     if (bumper.formeObject == Enums.Forme.Flipper && !bumper.poigneeOfBumper.stayDown)
                     {
-                        Ball.Instance.speedX *= 1.1f;
-                        Ball.Instance.speedY *= 1.1f;
+                        Ball.Instance.speedX *= 1.15f;
+                        Ball.Instance.speedY *= 1.15f;
                     }
 
                     return true;
