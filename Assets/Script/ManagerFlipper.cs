@@ -43,7 +43,13 @@ public class ManagerFlipper : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(alive)
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Death();
+            Spawn();
+        }
+
+        if (alive)
         {
             //Si la balle passe en dessous du plateau de jeu
             if (Ball.Instance.transform.position.y <= -200)
@@ -74,7 +80,7 @@ public class ManagerFlipper : MonoBehaviour
             {
                 if (currentBumper.formeObject == Enums.Forme.Rond)
                 {
-                    //////////////////////////////////////////////Rediviser par 100 la vitesse pour s'approcher au maximum//////////////////////////////////////////////////////////////////////////////
+                    //Rediviser par 100 la vitesse pour s'approcher au maximum
                     for (int i = 0; i < 100; i++) // On rapproche au maximum notre balle de l'objet pour faire de bons calculs de collision
                     {
                         float distanceBetBallAndBumper = Mathf.Sqrt(Mathf.Pow(currentBumper.transform.position.x - Ball.Instance.returnNextFramePositionXDiv100(), 2) + Mathf.Pow(currentBumper.transform.position.y - Ball.Instance.returnNextFramePositionYDiv100(), 2));
@@ -87,7 +93,6 @@ public class ManagerFlipper : MonoBehaviour
                             break;
                         }
                     }
-                    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
                     Vector3 Ball2Bump = new Vector2(currentBumper.transform.position.x - Ball.Instance.transform.position.x, currentBumper.transform.position.y - Ball.Instance.transform.position.y);
 
@@ -105,12 +110,6 @@ public class ManagerFlipper : MonoBehaviour
                     Ball.Instance.speedX *= 0.95f;
                     Ball.Instance.speedY *= 0.95f;
                 }
-
-                if (currentBumper.formeObject == Enums.Forme.Rectangle)
-                {
-
-                }
-
             }
         }
         else
@@ -118,11 +117,9 @@ public class ManagerFlipper : MonoBehaviour
             Debug.Log("Dead");
             if (Input.GetKey("space"))
             {
-                Spawn();
-                
+                Spawn(); 
             }
         }
-        
     }
 
 
@@ -179,8 +176,6 @@ public class ManagerFlipper : MonoBehaviour
 
                     return true;
                 }
-
-                
             }
         }
 

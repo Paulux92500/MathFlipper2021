@@ -12,6 +12,7 @@ public class Ball : MonoBehaviour
     public float inclinaisonFlipper = 20;
     public float gravity = 9.8f;
     public float rayon = 2;
+    public int forceTilt = 1;
 
     private void Awake()
     {
@@ -41,5 +42,17 @@ public class Ball : MonoBehaviour
     public float returnNextFramePositionXDiv100()
     {
         return transform.position.x + speedX / 100;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            speedX -= forceTilt;
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            speedX += forceTilt;
+        }
     }
 }
