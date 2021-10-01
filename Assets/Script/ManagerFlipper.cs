@@ -94,6 +94,9 @@ public class ManagerFlipper : MonoBehaviour
                         }
                     }
 
+
+                    //calcul d'angle. 
+
                     Vector3 Ball2Bump = new Vector2(currentBumper.transform.position.x - Ball.Instance.transform.position.x, currentBumper.transform.position.y - Ball.Instance.transform.position.y);
 
                     float AlphaR = Vector2.Angle(Vector2.right, new Vector2(Ball.Instance.speedX, Ball.Instance.speedY)); // - (Mathf.PI * Mathf.Rad2Deg)
@@ -162,6 +165,11 @@ public class ManagerFlipper : MonoBehaviour
                         Ball.Instance.speedX *= 1.15f;
                         Ball.Instance.speedY *= 1.15f;
                     }
+                    else
+                    {
+                        Ball.Instance.speedX *= 0.95f;
+                        Ball.Instance.speedY *= 0.95f;
+                    }
 
                     return true;
                 }
@@ -173,6 +181,9 @@ public class ManagerFlipper : MonoBehaviour
                     currentBumper = bumper;
 
                     Ball.Instance.speedX *= -1;
+
+                    Ball.Instance.speedX *= 0.95f;
+                    Ball.Instance.speedY *= 0.95f;
 
                     return true;
                 }
